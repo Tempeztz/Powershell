@@ -4,7 +4,7 @@
 This repository contains two PowerShell scripts designed to automate Excel file processing:
 
 1. **Unmerge.ps1** - Cleans and formats Excel files by unmerging cells, removing unnecessary rows, and handling empty columns.
-2. **dataretrieve.ps1** - Retrieves specific publisher-related data from multiple Excel files and consolidates it into a single output file.
+2. **Dataretrieve.ps1** - Retrieves specific publisher-related data from multiple Excel files and consolidates it into a single output file.
 
 Both scripts leverage the `ImportExcel` module for Excel manipulations.
 
@@ -53,7 +53,7 @@ Install-Module -Name ImportExcel -Force -Scope CurrentUser
 #### Output
 - Cleaned Excel files saved in the specified output directory.
 
-### 2. dataretrieve.ps1
+### 2. Dataretrieve.ps1
 #### Description
 `dataretrieve.ps1` extracts publisher-specific data from Excel files by:
 - Reading publisher names from `publisher.xlsx`.
