@@ -4,13 +4,13 @@ This PowerShell script processes and updates Excel files by combining data from 
 
 ## Overview
 
-- **Source Excel File (`Azuredisks_prod.xlsx`)**:  
+- **Source Excel File (`Azuredisks_prod_devtest-book1-v3.xlsx`)**:  
   Contains original data with details like **ServerName**, **Resource Group**, and disk sizes (Measured in GiB). This file is used to extract resource group and disk size information.
 
-- **Target Excel File (`CombinedResult1.xlsx`)**:  
+- **Target Excel File (`Output-Azurevmlist-RG-01-07-25.xlsx`)**:  
   Contains records that need to be updated with resource group and disk size information. If the necessary columns (`Resource Group`, `osdisk`, and `datadisk`) are missing, the script adds them.
 
-- **Output Excel File (`CombinedResult2.xlsx`)**:  
+- **Output Excel File (`osdisk-nondisk-Output-RG-01-07-25.xlsx`)**:  
   The final updated Excel file, saved with a new worksheet named **UpdatedData**.
 
 ## Prerequisites  
