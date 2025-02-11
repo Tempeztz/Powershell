@@ -1,4 +1,4 @@
-# Excel Data Updater Script
+# RG-OSdisk-NonOsdisk Script
 
 This PowerShell script processes and updates Excel files by combining data from two source files. It updates resource group information and disk size values (OS disk and data disk) in a target Excel file based on matching records from a source file.
 
@@ -30,8 +30,8 @@ This PowerShell script processes and updates Excel files by combining data from 
 
 1. **Importing Excel Files**  
    The script imports two Excel files:  
-   - *Book1:* Contains the source data (example: resource group and disk size details)  
-   - *Book2:* Contains the data to be updated  
+   - *Book1 (`Azuredisks_prod_devtest-book1-v3.xlsx`):* Contains the source data (example: resource group and disk size details)  
+   - *Book2 (`Output-Azurevmlist-RG-01-07-25.xlsx`):* Contains the data to be updated  
 
 2. **Column Verification and Addition**  
    The script checks whether the target file (*Book2*) has the following columns:  
@@ -43,7 +43,7 @@ This PowerShell script processes and updates Excel files by combining data from 
 3. **Updating Records**  
    The script updates *Book2* based on matching values from *Book1* using the `ServerName` column as a reference.  
 
-4. **Output Excel File (`CombinedResult2.xlsx`)**  
+4. **Output Excel File (`osdisk-nondisk-Output-RG-01-07-25.xlsx`)**  
    The final updated Excel file, saved with a new worksheet named **UpdatedData**.  
 
 ## Usage
@@ -53,51 +53,7 @@ This PowerShell script processes and updates Excel files by combining data from 
 Save the PowerShell script in the same directory as the Excel files and run:
 
 ```powershell
-.\Update-Excel.ps1
-```
-
-### Example PowerShell Code
-
-```powershell
-# Import Required Module
-Import-Module ImportExcel
-
-# Load Source and Target Excel Files
-$SourceFile = "Azuredisks_prod.xlsx"
-$TargetFile = "CombinedResult1.xlsx"
-$OutputFile = "CombinedResult2.xlsx"
-
-# Read Excel Data
-$SourceData = Import-Excel -Path $SourceFile
-$TargetData = Import-Excel -Path $TargetFile
-
-# Ensure Required Columns Exist in Target File
-if (-not ($TargetData | Get-Member -Name 'Resource Group')) {
-    $TargetData | Add-Member -MemberType NoteProperty -Name 'Resource Group' -Value ''
-}
-
-if (-not ($TargetData | Get-Member -Name 'osdisk')) {
-    $TargetData | Add-Member -MemberType NoteProperty -Name 'osdisk' -Value 0
-}
-
-if (-not ($TargetData | Get-Member -Name 'datadisk')) {
-    $TargetData | Add-Member -MemberType NoteProperty -Name 'datadisk' -Value 0
-}
-
-# Update Data Based on Matching ServerName
-foreach ($row in $TargetData) {
-    $match = $SourceData | Where-Object { $_.ServerName -eq $row.ServerName }
-    if ($match) {
-        $row."Resource Group" = $match."Resource Group"
-        $row.osdisk = $match.osdisk
-        $row.datadisk = $match.datadisk
-    }
-}
-
-# Export Updated Data to New Excel File
-$TargetData | Export-Excel -Path $OutputFile -WorksheetName "UpdatedData" -AutoSize
-
-Write-Output "Excel file updated successfully: $OutputFile"
+.\RG-OSdisk-NonOsdisk.ps1
 ```
 
 ## Notes
@@ -111,7 +67,3 @@ Write-Output "Excel file updated successfully: $OutputFile"
   ```
 
 ---
-
-**Author:** Your Name  
-**Date:** Current Date  
-**Version:** 1.0  
